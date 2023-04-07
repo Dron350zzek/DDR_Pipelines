@@ -25,8 +25,11 @@ def save(file, table, connection='db.db'):
     with open(f"{file}.csv", "w", newline='') as file:
         cursor = sqlite3.connect(connection).cursor()
         writer = csv.writer(file)
-        writer.writerow(['id', 'name', 'url', 'domain_of_url'])
+        #writer.writerow(['id', 'name', 'url', 'domain_of_url'])
         data = cursor.execute("SELECT * FROM " + table)
+        for column in data.description:
+            #print(column(0))
+            writer.writerow(column[0])
         writer.writerows(data)
 
 
